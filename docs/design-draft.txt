@@ -12,7 +12,7 @@ recording as much data as possible, to better identify customer needs, thus prov
 
 They should be scalable,self-contained fail-safe and able to handle substantial network load.
 
-To address issues above, I would propose microservices-based architecture with No-SQL datastore for data analysis and EIP framework for external service communications.
+To address issues above, I would propose microservices-based architecture with No-SQL datastore and EIP framework for external service communications.
 
 Because system to be developed should be part of the existing IT landscape, implementing it as self-contained microservice would minimize deployment times and integration with existing services.
 
@@ -20,33 +20,43 @@ Because of dynamic nature of the data, No-SQL datastore is preferrable over trad
 
 EIP framework would facilitate integration with existing systems.
 
+For easy deployment management, I chose Maven and Vagrant for SCM and provisioning operations.
+
+Additionally, if complex analytics and reporting would be required, I would propose extending system with Apache Hadoop solution. 
+
 3) Technology stack
 
 1. Programming language : Java 1.8 (1.8  was chosen because it's production stable and contains many features which would ease the development (streams, lambdas etc.) )
 
-2. System core - Spring Framework 4.1
+2. System core - Spring Framework
 
 Spring Framework is stable, mature and robust product, which is well-documented and known to programming communities worldwide.
 
-3. Microservice core - Spring Boot 1.2.4
+3. Microservice core - Spring Boot
 
 Being part of Spring Framework, Spring Boot is good for rapid application prototype development, adding many useful features out-of-the-box, with minimal necessary configuration.
 
-4. Datastore - MongoDB 3.0.4
+4. Datastore - MongoDB
 
 MongoDB is document-based NoSQL database, suitable for handling large amounts of dynamic data. It's fail-safe via it's sharding mechanism, has established community and good support, and it's aggregation pipeline
 and mapreduce techniques provide good reporting possibilities.
 
-5. EIP framework - Apache Camel 2.15.2
+5. EIP framework - Apache Camel
 
 Camel routing and mediation engine would ease integration with existing systems, allowing easy usage of any EIP we might need (message delivery, transformation, failovers etc.) 
 
-6. SCM - Apache Maven 3.3.3
+6. SCM - Apache Maven
 
-Maven is proven SCM framework, with very good support of aforementioned technologies.
+Maven is proven SCM framework, with very good plugin support.
 
-7. Provisioning - Vagrant 1.7.2
+7. Provisioning - Vagrant
 
 Vagrant is great for provisioning microservice-based applications, providing readily-available, isolated work environments.
 
-8. Cloud PAAS - Heroku
+8. Complex analytics - Apache Hadoop
+
+Out of scope for the purpose of this demo.
+
+9) PaaS - Heroku
+
+Good for developing small application prototypes, for production-grade application I would suggest Amazon EC2 or similar.
