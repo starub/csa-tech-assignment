@@ -15,8 +15,6 @@ public class Payment {
     @Id
     private String id;
 
-    private String customerId;
-
     private String transactionId;
 
     private PaymentType type;
@@ -35,14 +33,6 @@ public class Payment {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
     }
 
     public String getTransactionId() {
@@ -100,7 +90,6 @@ public class Payment {
         result = prime * result + ((amount == null) ? 0 : amount.hashCode());
         result = prime * result + ((created == null) ? 0 : created.hashCode());
         result = prime * result + ((currency == null) ? 0 : currency.hashCode());
-        result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((transactionId == null) ? 0 : transactionId.hashCode());
@@ -123,9 +112,6 @@ public class Payment {
         if (currency == null) {
             if (other.currency != null) return false;
         } else if (!currency.equals(other.currency)) return false;
-        if (customerId == null) {
-            if (other.customerId != null) return false;
-        } else if (!customerId.equals(other.customerId)) return false;
         if (description == null) {
             if (other.description != null) return false;
         } else if (!description.equals(other.description)) return false;
@@ -142,8 +128,8 @@ public class Payment {
     @Override
     public String toString() {
         return String.format(
-                "Payment [id=%s, customerId=%s, transactionId=%s, type=%s, amount=%s, currency=%s, description=%s, created=%s]",
-                id, customerId, transactionId, type, amount, currency, description, created);
+                "Payment [id=%s, transactionId=%s, type=%s, amount=%s, currency=%s, description=%s, created=%s]", id,
+                transactionId, type, amount, currency, description, created);
     }
-    
+
 }
