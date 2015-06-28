@@ -1,0 +1,52 @@
+1) Objective description.
+
+Create architecture and design of internet banking system with a backend for data warehousing and analytics.
+Data analysis consists of assessing bank service transactions, such as funds transfer, loan applications, bill payments etc.
+System should provide flexible data reports.
+System should be easily maintained and run in cloud environment.
+
+2) Objective analysis.
+
+Modern online services are customer-centric and require flexible, dynamic approach for handling requests, 
+recording as much data as possible, to better identify customer needs, thus providing better service experience.
+
+They should be scalable,self-contained fail-safe and able to handle substantial network load.
+
+To address issues above, I would propose microservices-based architecture with No-SQL datastore for data analysis and EIP framework for external service communications.
+
+Because system to be developed should be part of the existing IT landscape, implementing it as self-contained microservice would minimize deployment times and integration with existing services.
+
+Because of dynamic nature of the data, No-SQL datastore is preferrable over traditional one - it would allow faster data migrations and adaptation to business needs. 
+
+EIP framework would facilitate integration with existing systems.
+
+3) Technology stack
+
+1. Programming language : Java 1.8 (1.8  was chosen because it's production stable and contains many features which would ease the development (streams, lambdas etc.) )
+
+2. System core - Spring Framework 4.1
+
+Spring Framework is stable, mature and robust product, which is well-documented and known to programming communities worldwide.
+
+3. Microservice core - Spring Boot 1.2.4
+
+Being part of Spring Framework, Spring Boot is good for rapid application prototype development, adding many useful features out-of-the-box, with minimal necessary configuration.
+
+4. Datastore - MongoDB 3.0.4
+
+MongoDB is document-based NoSQL database, suitable for handling large amounts of dynamic data. It's fail-safe via it's sharding mechanism, has established community and good support, and it's aggregation pipeline
+and mapreduce techniques provide good reporting possibilities.
+
+5. EIP framework - Apache Camel 2.15.2
+
+Camel routing and mediation engine would ease integration with existing systems, allowing easy usage of any EIP we might need (message delivery, transformation, failovers etc.) 
+
+6. SCM - Apache Maven 3.3.3
+
+Maven is proven SCM framework, with very good support of aforementioned technologies.
+
+7. Provisioning - Vagrant 1.7.2
+
+Vagrant is great for provisioning microservice-based applications, providing readily-available, isolated work environments.
+
+8. Cloud PAAS - Heroku
