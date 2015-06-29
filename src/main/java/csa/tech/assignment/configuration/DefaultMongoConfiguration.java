@@ -9,7 +9,7 @@ import com.mongodb.MongoClient;
 
 @Configuration
 @EnableMongoRepositories(basePackages = "csa.tech.assignment.domain.repositories")
-public class MongoConfiguration extends AbstractMongoConfiguration {
+public class DefaultMongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     protected String getDatabaseName() {
