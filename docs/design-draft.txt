@@ -264,6 +264,28 @@ Configuration layer consists of 'Configuration' type classes responsible for sys
 Data layer consists of 'Repository' type classes responsible for domain object <-> raw data transformation, storage and retrieval.
 
 
+4.4. 
+
+Data model
+
+<< data_model.dia >>>
+
+Premliminary data model consists only of essential entities, required for early reporting functionality.
+
+'Customer' object representes human customer, with required credentials.
+
+'Address' object represents 'Customer's' physical address.
+
+'Transaction' object represents action started by 'Customer' for every operation with IBS/DAS system.
+
+'Payment' object represents certain action issued by 'Customer' during 'Transaction' e.g. paying bills, or mortgage repayment.
+
+'TransactionType' object represents type of 'Transaction'
+
+'PaymentType' object represents type of 'Payment'
+
+
+
 
 
 
