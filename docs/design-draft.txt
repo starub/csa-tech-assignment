@@ -78,8 +78,6 @@ Section 5 : Most important use case realizations;
 
 Section 6 : System deployment process explanation;
 
-Section 7 : Performance issues and constraints;
-
 SECTION 2 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 2. IBS/DAS Analysis
@@ -284,11 +282,32 @@ Premliminary data model consists only of essential entities, required for early 
 
 'PaymentType' object represents type of 'Payment'
 
+SECTION 5 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+5. Most important use case realizations;
 
+Process model
 
-
-
+<<< process_model_customer.dia >>>
  
+1. Actor interacts with IBS/DAS system using web browser. During his session he's able to perform function calls to REST API module in order to perform payments in transaction context.
 
+2. Actor interacts with IBS/DAS system using web browser. During his session he's able to retrieve reports about payments, and customers.
 
+Use case model
+
+<<< customer_payment_use_case.dia >>>
+
+Actor performs payment operation in IBS/DAS system.
+
+<<< reporting_use_case.dia >>>
+
+Actor performs report query in IBS/DAS system.
+
+SECTION 6  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Deployment process 
+
+<<< physical_model.dia >>>
+
+In the early development stages Vagrant boxing is not needed, but is considered for scaling issues.
