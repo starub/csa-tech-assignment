@@ -120,13 +120,13 @@ Camel routing and mediation engine would ease integration with existing systems,
 
 Maven is proven SCM framework, with very good plugin support.
 
-7. Provisioning - Vagrant (optional)
+7. Provisioning - Vagrant
 
-Out of scope for the purpose of this SAD, but could be useful when scaling system in case of substantial load increase.
+Could be useful when scaling system in case of substantial load increase.
 
-8. Complex analytics - Apache Hadoop (optional)
+8. Complex analytics - Apache Hadoop
 
-Out of scope for the purpose of this SAD, but could be useful in the future if complex analytics would be required.
+Could be useful in the future if complex analytics would be required.
 
 9. PaaS - Heroku
 
@@ -148,7 +148,7 @@ The following views are presented in this SAD:
 
 SECTION 4 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Architecture goals and constraints
+4.1 Architecture goals and constraints
 
 The following goals and constraints are identified in first 2 stages of system development (early, mid-term)
 
@@ -225,6 +225,46 @@ To scale load horizontally, session-persisting mechanism would be introduced, cl
 7 Availability/Reliability (mid-term development stage)
 
 DevOps team would be required for additional monitoring of application health. Metrics and healthchecks could be introduced (i.e. SpringBoot Actuator)
+
+4.2
+
+Logical view diagram.
+
+IBS/DAS system is divided into layers based on the N-tier architecture :
+
+<<< logical_view.dia >>>>>
+
+- Presentation layer is responsible for receiving payload requests from system users and issuing particular payload responses.
+
+- Application layer is where core of the system resides, along with reporting engine, legacy system integration framework and RESTful API.
+
+- Configuration layer is responsible for configuring system to operate under different work environments, contains crucial system properties and flexible component configurations.
+
+It is especially useful for introducing different level of service abstractions, in order for the system to be fully testable.
+
+Note for developers :
+
+Currently TEST, DEV, RC, and PROD configurations are supported, in accordance with the proposed Git flow branchning model.
+
+- Data layer is where all application/reporting services and repositories reside, to provide access to persistent data.
+
+
+4.3.
+
+Development view diagram, using domain driven design definitions 
+
+<<< development_view.dia >>>
+
+Presentation layer consists of RESTful API endpoints, for service interaction with customers. A set of Camel endpoints is also defined providing communication with legacy systems.
+
+Application layer consists of 'Manager' type classes responsible for aggregating 'Service' type classes, providing communication with REST/Camel endpoints and core application logic.
+
+Configuration layer consists of 'Configuration' type classes responsible for system behaviour in different environments, i.e. database connection properties in TEST, DEV, RC, PROD environments etc.
+
+Data layer consists of 'Repository' type classes responsible for domain object <-> raw data transformation, storage and retrieval.
+
+
+
 
 
  
