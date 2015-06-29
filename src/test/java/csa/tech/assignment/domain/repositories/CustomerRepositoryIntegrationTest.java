@@ -29,20 +29,12 @@ public class CustomerRepositoryIntegrationTest {
     @Autowired
     CustomerRepository repository;
 
+    private Customer customer;
+
     @Before
     public void setUp() {
-        repository.deleteAll();
-    }
 
-    @After
-    public void tearDown() {
-        repository.deleteAll();
-    }
-
-    @Test
-    public void testCustomerInsertDelete() {
-
-        Customer customer = new Customer();
+        customer = new Customer();
 
         Address address = new Address();
         address.setAptNumber("1");
@@ -58,11 +50,19 @@ public class CustomerRepositoryIntegrationTest {
         customer.setEmail("scott@example.com");
 
         repository.insert(customer);
+    }
+
+    @After
+    public void tearDown() {
+        repository.delete(customer);
+    }
+
+    @Test
+    public void testCustomerRetrieval() {
 
         Customer dbCustomer = repository.findByFirstName("Scott");
 
         assertNotNull(dbCustomer);
-        assertEquals("Scott", dbCustomer.getFirstName());
-
+        assertEquals(customer, dbCustomer);
     }
 }
