@@ -1,34 +1,105 @@
-1) Objective description.
+Software Architecture Document
 
-Create architecture and design of internet banking system with a backend for data warehousing and analytics.
-Data analysis consists of assessing bank service transactions, such as funds transfer, loan applications, bill payments etc.
-System should provide flexible data reports.
-System should be easily maintained and run in cloud environment.
+SECTION 1 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-2) Objective analysis.
+1. Introduction
 
-Modern online services are customer-centric and require flexible, dynamic approach for handling requests, 
-recording as much data as possible, to better identify customer needs, thus providing better service experience.
+This document provides a high level overview and explains the whole architecture of Internet Banking Solution (IBS) with Data Analytics System (DAS) as part of it's backend.
+It explains customer online interaction with IBS, reporting functionality of DAS and integration with existing software landscape.
 
-They should be scalable,self-contained fail-safe and able to handle substantial network load.
+1.1. Purpose
 
-To address issues above, I would propose microservices-based architecture with No-SQL datastore and EIP framework for external service communications.
+The document provides a high-level description of the goals of the architecture, the use cases support by the system, 
+and architectural styles and components that have been selected to best achieve the use cases.
 
-Because system to be developed should be part of the existing IT landscape, implementing it as self-contained microservice would minimize deployment times and integration with existing services.
+Structure of this document is based on the "4+1" architectural view model.
 
-Because of dynamic nature of the data, No-SQL datastore is preferrable over traditional one - it would allow faster data migrations and adaptation to business needs. 
+<<< 4_1_Model.dia >>>>
 
-EIP framework would facilitate integration with existing systems.
+This model allows quick navigation to every aspect of IBS/DAS architecture.
 
-For easy deployment management, I chose Maven and Vagrant for SCM and provisioning operations.
+1.2. Scope
 
-Additionally, if complex analytics and reporting would be required, I would propose extending system with Apache Hadoop solution. 
+The scope of this SAD is to depict architecturally significant aspects and essential requirements, such as
 
-3) Technology stack
+Functional :
 
-1. Programming language : Java 1.8 (1.8  was chosen because it's production stable and contains many features which would ease the development (streams, lambdas etc.) )
+- DAS data collection from different sources;
+- DAS reporting engine based on collected data;
+- 2 different reports available;
 
-2. System core - Spring Framework
+Non-Functional :
+
+- All system/external communication should be secured;
+- System must be responsive and perform well under load;
+- Different type of data must be used for reporting;
+
+1.3 Definitions, Acronyms and Abbreviations
+
+- SAD - Software Architecture Document;
+
+- IBS -Internet Banking Solution - part of the system to be developed, provides customer interaction model;
+
+- DAS - Data Analysis System - part of the system to be developed, provides data collection, transformation, analysis and reporting;
+
+- Java - programming language to be used to implement the IBS/DAS;
+
+- Apache Maven - Software configuration management tool, essential for building and assisting in system deployment;
+
+- Spring Framework - Application development framework, designed to aid and facilitate modern web application development;
+
+- Spring Boot - part of Spring Framework, allows rapid prototype development and self-contained system design;
+
+- MongoDB - NoSQL datastorage solution, schema-less database suitable for rapid and flexible collection various types of business data;
+
+- Apache Camel - Enterprise Integration Patterns framework, routing and mediation engine designed to facilitate integration with legacy software systems; 
+
+- Apache Hadoop (optional) - Distibuted data analysis framework, to be integrated in DAS if complex analytics would ever be required;
+
+- Vagrant (optional) - Self-contained environment, complete software image with IBS/DAS and all required dependencies preconfigured, for easy scaling and deployment;
+
+- API - Application Programming Interface - a set of functions and procedures that allow the creation of applications which access the features or data of an operating system, application, or other service; 
+
+- REST - REpresentational STate transfer - stateless, client-server, cacheable communications protocol, typically used in modern web applications;
+
+- PAAS - Platform as a service (PaaS) is a category of cloud computing services that provides a platform allowing customers to develop, run and manage Web applications without the complexity of building and maintaining the infrastructure typically associated with developing and launching an application;
+
+- Heroku - Cloud PAAS, suitable for deploying early IBS/DAS prototype 
+
+1.4 SAD Overview
+
+Section 2 : IBS/DAS analysis and reasoning behind each architectural component;
+
+Section 3 : "4+1" model each view usage and description;
+
+Section 4 : Architectural goals and constraints of the system;
+
+Section 5 : Most important use case realizations;
+
+Section 6 : System deployment process explanation;
+
+Section 7 : Performance issues and constraints;
+
+SECTION 2 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. IBS/DAS Analysis
+
+Modern online services are customer-centric and require flexible, dynamic approach for handling requests. 
+They should record as much varied business data as possible, to better identify customer needs, thus providing better service experience to customer.
+They should be scalable,self-contained, fail-safe and able to handle substantial network load.
+They should be easy to develop, deploy and maintain, have flexible release cycle to better adapt for business needs.
+
+Based on the above, microservice-based architecture was chosen as best candidate - it allows rapid prototyping, deployment and scaling, retaining the possibility to evolve into modular application architecture
+if needed.
+
+Because of the dynamic nature of business data, NoSQL solution was chosen over the relational one. Schema-less datastore may lack in complex analytics (i.e. OLAP cubes) but many solutions are readily available
+on the market to ease the process (i.e. Apache Hadoop)  
+
+The following architectural components were chosen for the system :
+
+1. Programming language : Java 1.8 (1.8  was chosen because it's production stable and contains many features which would ease the development (streams, lambdas, new date API etc.) )
+
+2. Core - Spring Framework
 
 Spring Framework is stable, mature and robust product, which is well-documented and known to programming communities worldwide.
 
@@ -49,14 +120,113 @@ Camel routing and mediation engine would ease integration with existing systems,
 
 Maven is proven SCM framework, with very good plugin support.
 
-7. Provisioning - Vagrant
+7. Provisioning - Vagrant (optional)
 
-Vagrant is great for provisioning microservice-based applications, providing readily-available, isolated work environments.
+Out of scope for the purpose of this SAD, but could be useful when scaling system in case of substantial load increase.
 
-8. Complex analytics - Apache Hadoop
+8. Complex analytics - Apache Hadoop (optional)
 
-Out of scope for the purpose of this demo.
+Out of scope for the purpose of this SAD, but could be useful in the future if complex analytics would be required.
 
-9) PaaS - Heroku
+9. PaaS - Heroku
 
 Good for developing small application prototypes, for production-grade application I would suggest Amazon EC2 or similar.
+
+SECTION 3 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+The following views are presented in this SAD:
+
+1 - Logical view : The logical view is concerned with the functionality that the system provides to end-users.
+
+2 - Development view : The development view illustrates a system from a programmer's perspective and is concerned with software management.
+
+3 - Process view : The process view deals with the dynamic aspects of the system, explains the system processes and how they communicate, and focuses on the runtime behavior of the system. The process view addresses concurrency, distribution, integrators, performance, and scalability, etc.
+
+4 - Physical view : The physical view depicts the system from a system engineer's point of view. It is concerned with the topology of software components on the physical layer, as well as the physical connections between these components. 
+
+5 - Use case view : The use case view describe sequences of interactions between objects, and between processes. It's used to identify architectural elements and to illustrate and validate the architecture design. It also serves as a starting point for tests of an architecture prototype.
+
+SECTION 4 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Architecture goals and constraints
+
+The following goals and constraints are identified in first 2 stages of system development (early, mid-term)
+
+1 - Server side
+2 - Persistence
+3 - Security
+4 - Integrations
+5 - Client side
+6 - Performance
+7 - Reliability/Availability
+
+1 - Server side (early development stage)
+
+IBS/DAS system will be hosted in cloud PaaS environment (Heroku), running as standalone jar on embedded application server. 
+
+2 - Persistence (early development stage)
+
+IBS/DAS will be connected to single MongoDB database server.
+
+3 - Security (early development stage
+
+No authorization/authentication mechanism is planned at this point, except for HTTPS communication between client and server, under constrained Heroku environment.
+
+4 - Integrations (early development stage)
+
+No integration with legacy system is planned at this point.
+
+5 - Client side (early development stage)
+
+IBS/DAS would provide RESTful API for reporting data retrieval.
+
+6 - Performance (early development stage)
+
+There is no particular constrains related to system performance.
+
+It is anticipated that the system should respond to any request well under standard database and web server script timeouts (5 seconds), 
+also system performance can depend on available hardware, PSU network and internet connection capabilities. 
+
+In addition, upload / download times can depend on data size which in turn depends on user input. 
+Therefore, actual performance can be determined only after system deployment and testing. 
+
+7 - Reliability (early development stage)
+
+Heroku would provide required availability, considering necessary downtimes as per free usage agreement.
+
+1 - Server side (mid-term development stage)
+
+IBS/DAS system will be hosted in SaaS environment of choice (Heroku Enterprise, Amazon AWS/EC2 etc.) packaged as Vagrant box. 
+
+2 - Persistence (mid-term development stage)
+
+IBS/DAS system will be connected to multiple MongoDB database servers using sharding solution.
+
+3 - Security (mid-term development stage)
+
+Authentication/authorization mechanism will be implemented, according to needs (token-based, 2-factor etc.)
+
+4 - Integrations (mid-term development stage)
+
+Additional integration would include using Apache Camel for legacy systems, complex reporting would be achieved with Apache Hadoop.
+
+5 - Client side (mid-term development stage)
+
+All communication with client would be performed via web browser using RESTful API over HTTPS protocol.
+
+IBS/DAS would provide comprehensive UI/UX experience, with adaptive design for viewing on multiple devices (phones, tablets, dekstops etc.) I would suggest using AngularJS 1.x as frontent framework,
+in conjunction with ReactJS for overcoming rendering bottlenecks.
+
+6 - Performance (mid-term development stage)
+
+After series of stress-testing, additional scaling would be determined if needed. 
+To scale load horizontally, session-persisting mechanism would be introduced, clustering of system and database servers would be required.
+
+7 Availability/Reliability (mid-term development stage)
+
+DevOps team would be required for additional monitoring of application health. Metrics and healthchecks could be introduced (i.e. SpringBoot Actuator)
+
+
+ 
+
+
