@@ -4,7 +4,7 @@ SECTION 1 ----------------------------------------------------------------------
 
 1. Introduction
 
-This document provides a high level overview and explains the whole architecture of Internet Banking Solution (IBS) with Data Analytics System (DAS) as part of it's backend.
+This document provides architecture description of Internet Banking Solution (IBS) with Data Analytics System (DAS) as part of it's backend.
 It explains customer online interaction with IBS, reporting functionality of DAS and integration with existing software landscape.
 
 1.1. Purpose
@@ -16,17 +16,15 @@ Structure of this document is based on the "4+1" architectural view model.
 
 <<< 4_1_Model.dia >>>>
 
-This model allows quick navigation to every aspect of IBS/DAS architecture.
-
 1.2. Scope
 
-The scope of this SAD is to depict architecturally significant aspects and essential requirements, such as
+The scope of this SAD is to depict architecturally significant aspects and project requirements, such as
 
 Functional :
 
 - DAS data collection from different sources;
 - DAS reporting engine based on collected data;
-- 2 different reports available;
+- At least 2 different reports available;
 
 Non-Functional :
 
@@ -64,7 +62,11 @@ Non-Functional :
 
 - PAAS - Platform as a service (PaaS) is a category of cloud computing services that provides a platform allowing customers to develop, run and manage Web applications without the complexity of building and maintaining the infrastructure typically associated with developing and launching an application;
 
-- Heroku - Cloud PAAS, suitable for deploying early IBS/DAS prototype 
+- Heroku - Cloud PAAS, suitable for deploying early IBS/DAS prototype;
+
+- JUnit - Unit-testing framework for project testing;
+
+- Mockito - Object mocking framework for project testing;
 
 1.4 SAD Overview
 
@@ -82,10 +84,15 @@ SECTION 2 ----------------------------------------------------------------------
 
 2. IBS/DAS Analysis
 
-Modern online services are customer-centric and require flexible, dynamic approach for handling requests. 
+Modern online services are customer-centric and require flexible, dynamic approach for handling requests.
+ 
 They should record as much varied business data as possible, to better identify customer needs, thus providing better service experience to customer.
+
 They should be scalable,self-contained, fail-safe and able to handle substantial network load.
+
 They should be easy to develop, deploy and maintain, have flexible release cycle to better adapt for business needs.
+
+They should be easily testable, with multiple environments to launch tests.
 
 Based on the above, microservice-based architecture was chosen as best candidate - it allows rapid prototyping, deployment and scaling, retaining the possibility to evolve into modular application architecture
 if needed.
@@ -130,6 +137,8 @@ Could be useful in the future if complex analytics would be required.
 
 Good for developing small application prototypes, for production-grade application I would suggest Amazon EC2 or similar.
 
+10. Testing - JUnit/Mockito would provide comprehensive coverage of testing required functionality on backend.
+
 SECTION 3 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The following views are presented in this SAD:
@@ -157,6 +166,7 @@ The following goals and constraints are identified in first 2 stages of system d
 5 - Client side
 6 - Performance
 7 - Reliability/Availability
+8 - Testing
 
 1 - Server side (early development stage)
 
@@ -168,7 +178,7 @@ IBS/DAS will be connected to single MongoDB database server.
 
 3 - Security (early development stage
 
-No authorization/authentication mechanism is planned at this point, except for HTTPS communication between client and server, under constrained Heroku environment.
+No authorization/authentication mechanism is planned at this point.
 
 4 - Integrations (early development stage)
 
@@ -192,6 +202,10 @@ Therefore, actual performance can be determined only after system deployment and
 
 Heroku would provide required availability, considering necessary downtimes as per free usage agreement.
 
+8 - Testing (early development stage)
+
+Backend regression/smoke tests must be implemented in order to achieve acceptable code quality.
+
 1 - Server side (mid-term development stage)
 
 IBS/DAS system will be hosted in SaaS environment of choice (Heroku Enterprise, Amazon AWS/EC2 etc.) packaged as Vagrant box. 
@@ -203,14 +217,13 @@ IBS/DAS system will be connected to multiple MongoDB database servers using shar
 3 - Security (mid-term development stage)
 
 Authentication/authorization mechanism will be implemented, according to needs (token-based, 2-factor etc.)
+All communication with client would be performed via HTTPS protocol.
 
 4 - Integrations (mid-term development stage)
 
 Additional integration would include using Apache Camel for legacy systems, complex reporting would be achieved with Apache Hadoop.
 
 5 - Client side (mid-term development stage)
-
-All communication with client would be performed via web browser using RESTful API over HTTPS protocol.
 
 IBS/DAS would provide comprehensive UI/UX experience, with adaptive design for viewing on multiple devices (phones, tablets, dekstops etc.) I would suggest using AngularJS 1.x as frontent framework,
 in conjunction with ReactJS for overcoming rendering bottlenecks.
@@ -220,9 +233,13 @@ in conjunction with ReactJS for overcoming rendering bottlenecks.
 After series of stress-testing, additional scaling would be determined if needed. 
 To scale load horizontally, session-persisting mechanism would be introduced, clustering of system and database servers would be required.
 
-7 Availability/Reliability (mid-term development stage)
+7 - Availability/Reliability (mid-term development stage)
 
 DevOps team would be required for additional monitoring of application health. Metrics and healthchecks could be introduced (i.e. SpringBoot Actuator)
+
+8 - Testing (mid-term development stage)
+
+Frontend regression/acceptance tests must be added, backend test suites further expanded to achieve acceptable code coverage.
 
 4.2
 
@@ -237,15 +254,11 @@ IBS/DAS system is divided into layers based on the N-tier architecture :
 - Application layer is where core of the system resides, along with reporting engine, legacy system integration framework and RESTful API.
 
 - Configuration layer is responsible for configuring system to operate under different work environments, contains crucial system properties and flexible component configurations.
+It is especially useful for introducing different level of service abstractions, in order for the system to be fully testable
 
-It is especially useful for introducing different level of service abstractions, in order for the system to be fully testable.
-
-Note for developers :
-
-Currently TEST, DEV, RC, and PROD configurations are supported, in accordance with the proposed Git flow branchning model.
+TEST, DEV, RC, and PROD configurations are supported, in accordance with the proposed Git flow branchning model.
 
 - Data layer is where all application/reporting services and repositories reside, to provide access to persistent data.
-
 
 4.3.
 
