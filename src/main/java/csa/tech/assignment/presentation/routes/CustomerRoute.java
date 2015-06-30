@@ -22,7 +22,13 @@ public class CustomerRoute extends RouteBuilder {
 
         restConfiguration()
 
-        .component("restlet").port(8081).bindingMode(RestBindingMode.json);
+        .component("restlet")
+        
+        .port(8081)
+        
+        .bindingMode(RestBindingMode.json)
+        
+        .dataFormatProperty("prettyPrint", "true");
 
         CustomerManager manager = context.getBean(CustomerManager.class);
 
