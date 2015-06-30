@@ -24,7 +24,7 @@ public class PaymentRestController {
     }
 
     @RequestMapping(value = "/{transactionId}", method = RequestMethod.GET)
-    public List<Payment> findByCustomerId(@PathVariable String transactionId) {
+    public List<Payment> findByTransactionId(@PathVariable String transactionId) {
         return manager.findByTransactionId(transactionId);
     }
 }
