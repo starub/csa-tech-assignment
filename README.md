@@ -1,6 +1,11 @@
 # csa-tech-assignment
 
-**Pre-requisites :**
+**Description**
+
+Please find below short instructions on deploying technical assignment application on local environment, its usage,
+and reporting functionality.
+
+**Prerequisites :**
 
 1. Java runtime with 1.8 language support.
 2. Maven SCM toolkit.
