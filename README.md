@@ -1,33 +1,33 @@
 # csa-tech-assignment
 
-** Pre-requisites : **
+**Pre-requisites :**
 
 1. Java runtime with 1.8 language support.
 2. Maven SCM toolkit.
 2. MongoDB with default configuration.
 
-** Installation (from Internet): **
+**Installation (from Internet):**
 
-1. Clone project repository from Github 
-
+* Clone project repository from Github 
+```
 git clone https://github.com/starub/csa-tech-assignment.git 
-
-2. Change to project directory
-
+```
+* Change to project directory
+```
 cd csa-tech-assignment
-
-3. Let Maven download necessary dependencies, build and test application
-
+```
+* Let Maven download necessary dependencies, build and test application
+```
 mvn clean package
-
-4. Generate dummy data for reporting
-
+```
+* Generate dummy data for reporting
+```
 mvn test -Dtest=DummyDataTestSuite
-
-5. Launch application
-
+```
+* Launch application
+```
 mvn spring-boot:run
-
+```
 Installation (from supplied archive):
 
 1. Unpack archive
