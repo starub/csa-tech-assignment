@@ -2,8 +2,6 @@ package csa.tech.assignment.domain.documents;
 
 import java.util.Date;
 
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,9 +17,9 @@ public class Payment {
 
     private PaymentType type;
 
-    private Money amount;
+    private Double amount;
 
-    private CurrencyUnit currency;
+    private String currency;
 
     private String description;
 
@@ -51,19 +49,19 @@ public class Payment {
         this.type = type;
     }
 
-    public Money getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Money amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public CurrencyUnit getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(CurrencyUnit currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 
