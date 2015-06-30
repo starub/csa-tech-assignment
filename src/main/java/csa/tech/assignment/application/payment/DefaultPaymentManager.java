@@ -10,7 +10,7 @@ import csa.tech.assignment.domain.documents.Payment;
 
 @Component
 @Profile("PROD")
-public class DefaultPaymentManager implements PaymentManager<Payment> {
+public class DefaultPaymentManager implements PaymentManager {
 
     @Autowired
     PaymentService service;
@@ -18,6 +18,11 @@ public class DefaultPaymentManager implements PaymentManager<Payment> {
     @Override
     public List<Payment> list() {
         return service.list();
+    }
+
+    @Override
+    public List<Payment> findByTransactionId(String transactionId) {
+        return service.findByTransactionId(transactionId);
     }
 
 }

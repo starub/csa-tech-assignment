@@ -10,14 +10,19 @@ import csa.tech.assignment.domain.documents.Customer;
 
 @Component
 @Profile("PROD")
-public class DefaultCustomerManager implements CustomerManager<Customer> {
+public class DefaultCustomerManager implements CustomerManager {
 
     @Autowired
     CustomerService service;
-    
+
     @Override
     public List<Customer> list() {
         return service.list();
+    }
+
+    @Override
+    public Customer findByFirstName(String firstName) {
+        return service.findByFirstName(firstName);
     }
 
 }

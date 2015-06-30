@@ -2,7 +2,11 @@ package csa.tech.assignment.application.transaction;
 
 import java.util.List;
 
-public interface TransactionManager<T> {
+import csa.tech.assignment.domain.documents.Transaction;
 
-    List<T> list();
+public interface TransactionManager {
+
+    List<Transaction> list();
+
+    List<Transaction> findByCustomerId(String customerId);
 }

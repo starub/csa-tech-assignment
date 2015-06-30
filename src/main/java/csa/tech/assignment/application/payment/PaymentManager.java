@@ -2,7 +2,12 @@ package csa.tech.assignment.application.payment;
 
 import java.util.List;
 
-public interface PaymentManager<T> {
+import csa.tech.assignment.domain.documents.Payment;
 
-    List<T> list();
+public interface PaymentManager {
+
+    List<Payment> list();
+
+    List<Payment> findByTransactionId(String transactionId);
+    
 }

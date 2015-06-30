@@ -2,8 +2,12 @@ package csa.tech.assignment.application.customer;
 
 import java.util.List;
 
-public interface CustomerManager<T> {
+import csa.tech.assignment.domain.documents.Customer;
 
-    List<T> list();
+public interface CustomerManager {
+
+    List<Customer> list();
+
+    Customer findByFirstName(String firstName);
 
 }

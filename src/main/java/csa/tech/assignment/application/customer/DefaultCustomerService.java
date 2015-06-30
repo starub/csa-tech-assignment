@@ -11,7 +11,7 @@ import csa.tech.assignment.domain.repositories.CustomerRepository;
 
 @Service
 @Profile("PROD")
-public class DefaultCustomerService implements CustomerService<Customer> {
+public class DefaultCustomerService implements CustomerService {
 
     @Autowired
     CustomerRepository repository;
@@ -19,6 +19,11 @@ public class DefaultCustomerService implements CustomerService<Customer> {
     @Override
     public List<Customer> list() {
         return repository.findAll();
+    }
+
+    @Override
+    public Customer findByFirstName(String firstName) {
+        return repository.findByFirstName(firstName);
     }
 
 }

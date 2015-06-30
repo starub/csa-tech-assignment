@@ -11,7 +11,7 @@ import csa.tech.assignment.domain.repositories.PaymentRepository;
 
 @Service
 @Profile("PROD")
-public class DefaultPaymentService implements PaymentService<Payment> {
+public class DefaultPaymentService implements PaymentService {
 
     @Autowired
     PaymentRepository repository;
@@ -19,6 +19,11 @@ public class DefaultPaymentService implements PaymentService<Payment> {
     @Override
     public List<Payment> list() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Payment> findByTransactionId(String transactionId) {
+        return repository.findByTransactionId(transactionId);
     }
 
 }

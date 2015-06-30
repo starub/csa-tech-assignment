@@ -10,7 +10,7 @@ import csa.tech.assignment.domain.documents.Transaction;
 
 @Component
 @Profile("PROD")
-public class DefaultTransactionManager implements TransactionManager<Transaction> {
+public class DefaultTransactionManager implements TransactionManager {
 
     @Autowired
     TransactionService service;
@@ -18,6 +18,11 @@ public class DefaultTransactionManager implements TransactionManager<Transaction
     @Override
     public List<Transaction> list() {
         return service.list();
+    }
+
+    @Override
+    public List<Transaction> findByCustomerId(String customerId) {
+        return service.findByCustomerId(customerId);
     }
 
 }

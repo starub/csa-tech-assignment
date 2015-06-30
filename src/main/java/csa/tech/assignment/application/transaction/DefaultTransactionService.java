@@ -11,7 +11,7 @@ import csa.tech.assignment.domain.repositories.TransactionRepository;
 
 @Service
 @Profile("PROD")
-public class DefaultTransactionService implements TransactionService<Transaction> {
+public class DefaultTransactionService implements TransactionService {
 
     @Autowired
     TransactionRepository repository;
@@ -19,6 +19,11 @@ public class DefaultTransactionService implements TransactionService<Transaction
     @Override
     public List<Transaction> list() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Transaction> findByCustomerId(String customerId) {
+        return repository.findByCustomerId(customerId);
     }
 
 }
