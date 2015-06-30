@@ -83,7 +83,7 @@ Using 'curl' tool :
 
 Using web browser :
 
-1. Navigate to ```http://localhost:8080/customer/{customerId}``` to view particular customer.
+1. Navigate to ```http://localhost:8080/customer/{firstName}``` to view particular customer.
 
 2. Navigate to ```http://localhost:8080/transaction/{customerId}``` to view all transactions for particular customer.
 
@@ -92,7 +92,7 @@ Using web browser :
 
 Using 'curl' tool :
 
-1. ```curl -X GET http://localhost:8080/customer/{customerId}```
+1. ```curl -X GET http://localhost:8080/customer/{firstName}```
 
 2. ```curl -X GET http://localhost:8080/transaction/{customerId}```
 
