@@ -1,12 +1,12 @@
 # csa-tech-assignment
 
-Pre-requisites :
+** Pre-requisites : **
 
 1. Java runtime with 1.8 language support.
 2. Maven SCM toolkit.
 2. MongoDB with default configuration.
 
-Installation (from Internet):
+** Installation (from Internet): **
 
 1. Clone project repository from Github 
 
