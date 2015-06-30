@@ -71,3 +71,23 @@ Using 'curl' tool :
 3. curl -X GET http://localhost:8080/payment/list
 
 4. curl -X GET http://localhost:8081/services/camel/customer
+
+Reports :
+
+Using web browser :
+
+1. Navigate to http://localhost:8080/customer/{customerId} to view particular customer
+
+2. Navigate to http://localhost:8080/transaction/{customerId} to view all transactions for particular customer
+
+3. Navigate to http://localhost:8080/payment/{transactionId} to view all payments for particular transaction
+ 
+
+Using 'curl' tool :
+
+1. curl -X GET http://localhost:8080/customer/{customerId}
+
+2. curl -X GET http://localhost:8080/transaction/{customerId}
+
+3. curl -X GET http://localhost:8080/payment/{transactionId}
+
